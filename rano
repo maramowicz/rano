@@ -1,0 +1,21 @@
+touch ~/.nanorc
+if ! grep -q -F "include /usr/share/nano/rust.nanorc" ~/.nanorc; then
+	echo "\"Rust syntax highlighting\" support in nano is not enabled so im enable it for you ;)";
+	echo "include /usr/share/nano/rust.nanorc" >> ~/.nanorc;
+	read  -n 1 -p "And... done :D, press any key to continue..." mainmenuinput
+fi
+
+while :
+do
+	nano helloworld.rs
+	rm helloworld
+	if rustc helloworld.rs; then
+		./helloworld
+		read  -n 1 -p "Press any key to back to the editor, press Ctrl+C to stop this script" mainmenuinput
+	else 
+		rustoutput=$(rustc helloworld.rs --error-format json 2>&1);
+		sortedoutput=$(rustc helloworld.rs --error-format json 2>&1 | jq '.spans | .[] | .label,.file_name,.line_start,.column_start,.column_end');
+		echo $sortedoutput | xargs -n5 | nl;
+		read  -n 1 -p "Ohh... you got an error" mainmenuinput
+	fi
+done
