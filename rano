@@ -1,3 +1,4 @@
+#!/bin/bash
 touch ~/.nanorc
 if ! grep -q -F "include /usr/share/nano/rust.nanorc" ~/.nanorc; then
 	echo "\"Rust syntax highlighting\" support in nano is not enabled so im enable it for you ;)"
