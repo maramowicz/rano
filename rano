@@ -33,10 +33,10 @@ do
 				column=${sortedarray[$((($selectinput-1)*4+2))]}
 				nano +$row,$column $filename
 				if rustc helloworld.rs; then
-                			./helloworld
+					./helloworld
 					repeat=1
-                			read  -n 1 -p "Press any key to back to the editor, press Ctrl+C to stop this script" mainmenuinput
-        			fi
+					read  -n 1 -p "Press any key to back to the editor, press Ctrl+C to stop this script" mainmenuinput
+				fi
 			elif [[ $selectinput = "r" ]] ; then
 				repeat=0
 				rustc helloworld.rs
