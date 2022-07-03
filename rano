@@ -6,6 +6,41 @@ if ! grep -q -F "include /usr/share/nano/rust.nanorc" ~/.nanorc; then
 	read  -n 1 -p "And... done :D, press any key to continue..." mainmenuinput
 fi
 
+if [[ $# = 0 ]]; then
+	echo "                                    .     .r.    .                                                                        "
+	echo "                              .    .rr'  .rrr.  ,rr     .                                                                 "
+	echo "                             .rr;..rrrrr:rrrrr:rrrr:..;rr                    .'''.        ..    .''.           ..''..     "
+	echo "                        ,,.  :rrrrrrrrrrrrrrrrrrrrrrrrrrr; ..,,           lKM;   WWk      MMroX   ;MWd      'kNN    WNx.  "
+	echo "   .   '.               rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr                   lMW     MMd       NMK    xMX        WMx "
+	echo " .:r   ;rr'        ,,'..rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr..',,              .MM.    MM:       xMM   'MM.        'MM."
+	echo ";rrr.  ;rrr:       'rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr.       'rdk0KKkMM.    MM:       xMM   rMM.        .MM;"
+	echo "'rrrr. rrrrr.   .  ;rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr'  .  oWx      .MM.    MM:       xMM   .MM;        rMM."
+	echo " .rrrr,rrrrr   ;rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr, MM;      xMM.    MM:       xMM    'MW,      ;MM. "
+	echo "   .rrrrrr;     rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr;   MWxlroO  WM.    MM:       xMM      .MXkddkXM.   "
+	echo "     .rrr   ..',rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr,'.:.                                              "
+	echo "       rr,  .rrrrrrrrrrrrrrrrrrrrrrlOk'..:rrrrrrrxOr.':rrrrrrrrrrrrrrrrrrr.                                               "
+	echo "        .rr;':rrrrrrrrrrrrrrrrrrrrrxMMd   ;rrrrr.MMW   rrrrrrrrrrrrrrrrrr.                                                "
+	echo "           ;rrrrrrrrrrrrrrrrrrrrrr' rl    .rrrr, .r.   ,rrrrrrrrrrrrrrrrrr,.                                              "
+	echo "          ,rrrrrrrrrrrrrrrrrrrrrrr:.      :rrrrr.     .:rrrrrrrrrrrrrrrrrrrr:'.                                           "
+	echo "        ,rrrr..;;:rrrrrrrrrrrrrrrrrr:'.',rrrrrrrr:'',:rrrrrrrrrrrrrrr:.,;,.rrrr.                                          "
+	echo "         rrrr,  .'   ';::rrrrrrrrrrrrrrrrrrrrrr:'',,;;;;rrrrrr::rrr;   '  .rrr                                            "
+	echo "           rrr'   '           ;;::::rrrrrrrrr;.':rrrrrrr;'.  ,:rr;    .   rr;                                             "
+	echo "             ;r;    .                               ;rrrrr,,:rr          :r.                                              "
+	echo "               'r.                                   ;rrrrr.            ;;                                                "
+	echo "                 .,                               .,rrrrr              ;                                                  "
+	echo "                   .                          .;rrrrrr                .                                                   "
+	echo "                                                 ..                                                                       "
+	echo " ...huh, this crab is HUGE..."
+	echo "                                                                                                                          "
+	echo "   Hey! If you want open/create new project, you must write argument with name of project."
+	echo " "
+	echo "   If you want help, just write --help"
+#	echo " "
+#	echo "   If you want to run this program, JUST DO IT! If you dont know how, run "bash rano" or if you want to set rano as executable "chmod +x rano""
+#	echo "   no need to thank me ;)"
+	exit 0
+fi
+
 while :
 do
 	nano helloworld.rs
@@ -27,7 +62,7 @@ do
 			echo $sortedoutput | xargs -n4 | nl
 			read -p "You can continue editing file with Enter. You can close this program too with Ctrl+C. But you can go to code that causes problems wiith writing number of error and htting Enter (if you close editor you back here). If you want to recompile your code, hit 'r' and then Enter" selectinput
 			re='^[0-9]+$'
-			if [[ $selectinput =~ $re ]] ; then
+			if [[ $selectinput =~ $re ]]; then
 				repeat=0
 				filename=${sortedarray[$((($selectinput-1)*4+0))]}
 				row=${sortedarray[$((($selectinput-1)*4+1))]}
@@ -38,7 +73,7 @@ do
 					repeat=1
 					read  -n 1 -p "Press any key to back to the editor, press Ctrl+C to stop this script" mainmenuinput
 				fi
-			elif [[ $selectinput = "r" ]] ; then
+			elif [[ $selectinput = "r" ]]; then
 				repeat=0
 				rustc helloworld.rs
 				./helloworld
