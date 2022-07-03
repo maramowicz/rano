@@ -34,26 +34,42 @@ if [[ $# = 0 ]]; then
 	echo "                                                                                                                          "
 	echo "   Hey! If you want open/create new project, you must write argument with name of project."
 	echo " "
-	echo "   If you want help, just write --help"
+	echo "   If you want help, just write -h"
 #	echo " "
 #	echo "   If you want to run this program, JUST DO IT! If you dont know how, run "bash rano" or if you want to set rano as executable "chmod +x rano""
 #	echo "   no need to thank me ;)"
 	exit 0
 fi
 
+while getopts 'h' OPTION; do
+	case "$OPTION" in
+	h)
+		echo "Congratulations!!! You got the help."
+		echo "Unfortunally theres nothing here for now, so if you want help just dont write any arguments, ok."
+		exit 1337
+		;;
+	?)
+		echo "Ok, lets say it again... write -h" >&2
+		exit 1
+		;;
+	esac
+done
+shift "$(($OPTIND -1))"
+
+nameofproject=$1
 while :
 do
-	nano helloworld.rs
-	rm helloworld
-	if rustc helloworld.rs; then
-		./helloworld
+	nano $nameofproject.rs
+	rm $nameofproject
+	if rustc $nameofproject.rs; then
+		./$nameofproject
 		read  -n 1 -p "Press any key to back to the editor, press Ctrl+C to stop this script" mainmenuinput
 	else
 		repeat=0
 		while [ $repeat -lt 1 ]
 		do
 			repeat=1
-			rustoutput=$(rustc helloworld.rs --error-format json 2>&1)
+			rustoutput=$(rustc $nameofproject.rs --error-format json 2>&1)
 			sortedoutput=$(echo $rustoutput | jq -r 'select(.level=="error") | .spans | .[] | .file_name,.line_start,.column_start,.column_end')
 			IFS="
 ";
@@ -68,15 +84,15 @@ do
 				row=${sortedarray[$((($selectinput-1)*4+1))]}
 				column=${sortedarray[$((($selectinput-1)*4+2))]}
 				nano +$row,$column $filename
-				if rustc helloworld.rs; then
-					./helloworld
+				if rustc $nameofproject.rs; then
+					./$nameofproject
 					repeat=1
 					read  -n 1 -p "Press any key to back to the editor, press Ctrl+C to stop this script" mainmenuinput
 				fi
 			elif [[ $selectinput = "r" ]]; then
 				repeat=0
-				rustc helloworld.rs
-				./helloworld
+				rustc $nameofproject.rs
+				./$nameofproject
 			fi
 		done
 	fi
